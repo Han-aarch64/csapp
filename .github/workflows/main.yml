@@ -15,8 +15,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: test
-        run: |
-          BOT_API_TOKEN=${{ secrets.BOT_API_TOKEN }}
-          TG_CHANNEL_ID=${{ secrets.TG_CHANNEL_ID }}
-          head_commit_msg=${{ github.event.head_commit.message }}
-          curl -X POST https://api.telegram.org/bot$BOT_API_TOKEN/sendMessage\?chat_id\=$TG_CHANNEL_ID\&text\=$head_commit_msg
+        env: # Or as an environment variable
+          BOT_API_TOKEN: ${{ secrets.AZURE_CREDENTIALS }}
+          TG_CHANNEL_ID: ${{ secrets.TG_CHANNEL_ID }}
+        run: curl -X POST https://api.telegram.org/bot$BOT_API_TOKEN/sendMessage\?chat_id\=$TG_CHANNEL_ID\&text\=${{ github.event.head_commit.message }}
