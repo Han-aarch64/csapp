@@ -1,0 +1,22 @@
+
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  tg-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: test
+        run: |
+          BOT_API_TOKEN=${{ secrets.BOT_API_TOKEN }}
+          TG_CHANNEL_ID=${{ secrets.TG_CHANNEL_ID }}
+          head_commit_msg=${{ github.event.head_commit.message }}
+          curl -X POST https://api.telegram.org/bot$BOT_API_TOKEN/sendMessage\?chat_id\=$TG_CHANNEL_ID\&text\=$head_commit_msg
