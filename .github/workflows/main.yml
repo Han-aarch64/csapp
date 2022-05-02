@@ -16,7 +16,7 @@ jobs:
 
       - name: test
         env: # Or as an environment variable
-          BOT_API_TOKEN: ${{ secrets.AZURE_CREDENTIALS }}
+          BOT_API_TOKEN: ${{ secrets.BOT_API_TOKEN }}
           TG_CHANNEL_ID: ${{ secrets.TG_CHANNEL_ID }}
         run: |
           curl -X POST "https://api.telegram.org/bot$BOT_API_TOKEN/sendMessage" --header "Content-Type: application/x-www-form-urlencoded" --data-urlencode "chat_id=$TG_CHANNEL_ID" --data-urlencode "text=${{ github.event.head_commit.message }}"
